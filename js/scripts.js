@@ -6,36 +6,28 @@ function isEmpty(testString) {
 // Business Logic
 
 function wordSummary(text) {
-  let summary = [];
+  summaryArray = [];
   
-  // call isEmpty 
   if (isEmpty(text)) {
     return 0;
   } 
-  // provide each word that needs to be counted
   textArray = text.split(" ");
   textArray.forEach(function(element) {
-    elementToCount = element;
+    elementToCount = element.toLowerCase();
     // run numberOfOccurrencesInText(word, text) for each word
-    let wordCountForElement = numberOfOccurrencesInText(elementToCount, text)
-    let summaryElement = 'element value ' + element + " interation count " + wordCountForElement
-    summary.append(summaryElement);
-    // return wordCountForElement
-    // temparray = [hi, 3, there, 2, yo, 2, hi, 3, yay, 2, yo, 2, whoa, 2, there, 2, yay, 2]
-    // temparray.slice(every2elelemtns)
-    //pass each 2 to printing function
+    let wordCountForElement = numberOfOccurrencesInText(elementToCount, text);
+    let summaryElement = elementToCount + ": " + wordCountForElement;
+    summaryArray.push(summaryElement);
     })
+  summaryArray = removeDuplicates(summaryArray);
+  console.log(summaryArray);
+  return summaryArray;
   }
-	var arr = ["apple", "mango", "apple",
-			"orange", "mango", "mango"];
 
-	function removeDuplicates(arr) {
-		return arr.filter((item,
-			index) => arr.indexOf(item) === index);
-	}
-
-	console.log(removeDuplicates(arr));
-
+function removeDuplicates(summary) {
+  return summary.filter((item,
+    index) => summary.indexOf(item) === index);
+}
 
 function wordCounter(text) {
   if (isEmpty(text)) {
@@ -93,6 +85,7 @@ function handleFormSubmission(event) {
   const word = document.getElementById("word").value;
   const wordCount = wordCounter(passage);
   const occurrencesOfWord = numberOfOccurrencesInText(word, passage);
+  let summaryArray = [];
   document.getElementById("total-count").innerText = wordCount;
   document.getElementById("selected-count").innerText = occurrencesOfWord;
   let boldedPassage = boldPassage(word, passage);
@@ -101,8 +94,18 @@ function handleFormSubmission(event) {
   } else {
     document.querySelector("div#bolded-passage").innerText = null;
   }
-  
-  wordSummary(passage);
+  summaryArray = wordSummary(passage);
+    const ul = document.createElement("ul");
+    const h4 = document.createElement("h4");
+    document.getElementById("summary-div").append(h4);
+    h4.append("List of words with their number of occurances:")
+    // make ul text = "these are your words and how many times they appear"
+    document.getElementById("summary-div").append(ul);
+    summaryArray.forEach(function(element) {
+      const li = document.createElement("li");
+      ul.append(li)
+      li.append(element);
+    })
 }
 
 window.addEventListener("load", function() {
