@@ -112,3 +112,12 @@ const word = "hello";
 const text = "hello there";
 boldPassage(word, text);
 Expected Output: <p><strong>hello</strong> there</p>
+
+wordSummary();
+
+Test: "a total of each words usage in a given input should be tallied"
+code:
+const word = "Hi there hey yo hi hi yay yo whoa there whoa yay"
+const text = "Hi there hey yo hi hi yay yo whoa there whoa yay"
+wordSummary(word, text);
+Expected output: <ul>most common words: <li>hi: 3</li> etc until done

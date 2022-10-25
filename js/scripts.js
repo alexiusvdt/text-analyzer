@@ -5,6 +5,38 @@ function isEmpty(testString) {
 
 // Business Logic
 
+function wordSummary(text) {
+  let summary = [];
+  
+  // call isEmpty 
+  if (isEmpty(text)) {
+    return 0;
+  } 
+  // provide each word that needs to be counted
+  textArray = text.split(" ");
+  textArray.forEach(function(element) {
+    elementToCount = element;
+    // run numberOfOccurrencesInText(word, text) for each word
+    let wordCountForElement = numberOfOccurrencesInText(elementToCount, text)
+    let summaryElement = 'element value ' + element + " interation count " + wordCountForElement
+    summary.append(summaryElement);
+    // return wordCountForElement
+    // temparray = [hi, 3, there, 2, yo, 2, hi, 3, yay, 2, yo, 2, whoa, 2, there, 2, yay, 2]
+    // temparray.slice(every2elelemtns)
+    //pass each 2 to printing function
+    })
+  }
+	var arr = ["apple", "mango", "apple",
+			"orange", "mango", "mango"];
+
+	function removeDuplicates(arr) {
+		return arr.filter((item,
+			index) => arr.indexOf(item) === index);
+	}
+
+	console.log(removeDuplicates(arr));
+
+
 function wordCounter(text) {
   if (isEmpty(text)) {
     return 0;
@@ -55,21 +87,22 @@ function boldPassage(word, text) {
 }
 
 // UI Logic
-function handleFormSubmission() {
-  e.preventDefault();
+function handleFormSubmission(event) {
+  event.preventDefault();
   const passage = document.getElementById("text-passage").value;
   const word = document.getElementById("word").value;
   const wordCount = wordCounter(passage);
   const occurrencesOfWord = numberOfOccurrencesInText(word, passage);
   document.getElementById("total-count").innerText = wordCount;
   document.getElementById("selected-count").innerText = occurrencesOfWord;
-  // new lines here!
   let boldedPassage = boldPassage(word, passage);
   if (boldedPassage) {
     document.querySelector("div#bolded-passage").append(boldedPassage);
   } else {
     document.querySelector("div#bolded-passage").innerText = null;
   }
+  
+  wordSummary(passage);
 }
 
 window.addEventListener("load", function() {
